@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      var TestReactComponent=React.createClass({
+        btnClick:function(event){
+        	var tipE=ReactDOM.findDOMNode(this.refs.tip);
+        	if(tipE.style.display==="none"){
+        		tipE.style.display="inline";
+        	}
+        	else{
+        		tipE.style.display="none";
+        	}
+        	event.stopPropagation();
+        	event.preventDefault();
+        },
+      	render:function(){
+      		return (
+      			<div>
+      				<button onClick={this.btnClick}>显示|隐藏</button><span ref="tip">点击测试按钮</span>
+      			</div>
+      		);
+      	}
+      })
+      
+      var TestInputComponent=React.createClass({
+      	getInitialState:function(){
+      		return {
+      			inputContent:""
+      		}
+      	},
+      	inputChange:function(event){
+      		this.setState({
+      			inputContent:event.target.value
+      		});
+      		event.stopPropagation();
+        	event.preventDefault();
+      	},
+      	render:function(){
+      		return (
+      			<div>
+      				<TestReactComponent />
+      				<input type="text" onChange={this.inputChange}/>
+      				<span>{this.state.inputContent}</span>
+      			</div>
+      		)
+      	}
+      })
+      
+      ReactDOM.render(
+        <TestInputComponent />,
+        document.getElementById('root')
+      );
+
+    </script>
+  </body>
+</html>
